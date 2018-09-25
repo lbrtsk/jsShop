@@ -4,7 +4,7 @@
   "description": "Simple shop API made using Node.js, Express.js and MongoDB",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint . --fix --cache --ignore-path .gitignore",
+    "lint": "./node_modules/.bin/eslint . --cache --ignore-path .gitignore",
     "dev": "./node_modules/.bin/nodemon . --exec \"npm run lint && node\""
   },
   "repository": {
