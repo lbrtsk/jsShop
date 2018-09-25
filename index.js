@@ -3,7 +3,9 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 
-const usersRoute = require('./routes/users');
+const usersRoutes = require('./routes/users');
+const productsRoutes = require('./routes/products');
+
 const mongoose = require('./config/database');
 
 // var jwt = require('jsonwebtoken');
@@ -17,7 +19,8 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // routes
-app.use('/users', usersRoute);
+app.use('/users', usersRoutes);
+app.use('/products', productsRoutes);
 
 // error handling
 app.use((req, res, next) => {
