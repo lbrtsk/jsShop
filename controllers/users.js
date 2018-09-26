@@ -34,7 +34,7 @@ module.exports = {
         next(err);
       } else if (userInfo && bcrypt.compareSync(req.body.password, userInfo.password)) {
         // eslint-disable-next-line no-underscore-dangle
-        const token = jwt.sign({ id: userInfo._id }, req.app.get('secretKey'), {});
+        const token = jwt.sign({ id: userInfo._id, roles: userInfo.roles }, req.app.get('secretKey'), {});
         res.json({ status: 'success', message: 'Authentication succesful', data: { user: userInfo, token } });
       } else {
         res.json({ status: 'error', message: 'Authentication failed', data: null });
