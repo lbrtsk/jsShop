@@ -2,13 +2,24 @@ const productModel = require('../models/products');
 
 module.exports = {
   list(req, res) {
-    productModel.find({}, (err, products) => {
-      if (err) {
-        res.json({ status: 'error', message: err.message, data: null });
-      } else {
-        res.json({ status: 'success', message: 'Products list', data: products });
-      }
-    });
+    const query = {};
+    if (req.query.search && req.query.search.length > 0) {
+      query.name = new RegExp(req.query.search, 'i');
+    }
+
+    if (req.query.category && req.query.category.length > 0) {
+      query.category = req.query.category;
+    }
+
+    productModel.paginate(query,
+      { offset: parseInt(req.query.offset, 10) || 0, limit: parseInt(req.query.limit, 10) || 10 },
+      (err, products) => {
+        if (err) {
+          res.json({ status: 'error', message: err.message, data: null });
+        } else {
+          res.json({ status: 'success', message: 'Products list', data: products });
+        }
+      });
   },
 
   async create(req, res) {
