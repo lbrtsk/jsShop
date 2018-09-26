@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const usersRoutes = require('./routes/users');
 const productsRoutes = require('./routes/products');
 const categoriesRoutes = require('./routes/categories');
+const ordersRoutes = require('./routes/orders');
 
 const app = express();
 app.set('secretKey', 'secret');
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/users', usersRoutes);
 app.use('/products', productsRoutes);
 app.use('/categories', categoriesRoutes);
+app.use('/orders', ordersRoutes);
 
 // error handling
 app.use((req, res) => {
