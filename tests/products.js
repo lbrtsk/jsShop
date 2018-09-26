@@ -5,7 +5,6 @@ describe('Product model tests', () => {
   var productModel;
 
   before(function(done) {
-    app.listen();
     mongoose.connect('mongodb://localhost/jsshop_test').then(function() {
       done();
     });
