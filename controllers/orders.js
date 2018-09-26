@@ -26,12 +26,10 @@ module.exports = {
 
   read(req, res) {
     orderModel.findById(req.params.id, (err, found) => {
-      if (!err && found.user === req.body.userId) {
-        res.json({ status: 'success', message: 'Order found.', data: found });
-      } else if (err) {
+      if (err) {
         res.json({ status: 'error', message: err.message, data: null });
       } else {
-        res.status(403).json({ status: 'error', message: 'Forbidden', data: null });
+        res.json({ status: 'success', message: 'Order found.', data: found });
       }
     });
   },
