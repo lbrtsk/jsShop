@@ -23,10 +23,10 @@ app.use('/users', usersRoutes);
 app.use('/products', productsRoutes);
 
 // error handling
-app.use((req, res, next) => {
+app.use((req, res) => {
   const err = new Error('Not Found');
   err.status = 404;
-  next(err);
+  res.status(404).json({ message: 'Not found' });
 });
 
 app.use((err, req, res) => {
