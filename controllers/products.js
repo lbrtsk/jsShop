@@ -1,17 +1,17 @@
 const productModel = require('../models/products');
 
 module.exports = {
-  list(req, res, next) {
+  list(req, res) {
     productModel.find({}, (err, products) => {
       if (err) {
-        next(err);
+        res.json({ status: 'error', message: err.message, data: null });
       } else {
         res.json({ status: 'success', message: 'Products list', data: products });
       }
     });
   },
 
-  create(req, res, next) {
+  create(req, res) {
     productModel.create({
       name: req.body.name,
       imageURL: req.body.imageURL,
@@ -20,9 +20,19 @@ module.exports = {
       category: req.body.category,
     }, (err, result) => {
       if (err) {
-        next(err);
+        res.json({ status: 'error', message: err.message, data: null });
       } else {
         res.json({ status: 'success', message: 'Product created successfully', data: result });
+      }
+    });
+  },
+
+  read(req, res) {
+    productModel.findById(req.params.id, (err, found) => {
+      if (err) {
+        res.json({ status: 'error', message: err.message, data: null });
+      } else {
+        res.json({ status: 'success', message: 'Product found.', data: found });
       }
     });
   },
