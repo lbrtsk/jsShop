@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const expect = require('chai').expect;
 
-describe('Category model tests', () => {
-  var categoryModel;
+describe('Product model tests', () => {
+  var productModel;
 
   before(function(done) {
     mongoose.connect('mongodb://localhost/jsshop_test').then(function() {
@@ -12,27 +12,44 @@ describe('Category model tests', () => {
 
   beforeEach(function(done) {
     mongoose.connection.dropDatabase().then(function() {
-      categoryModel = require('../models/categories');
+      productModel = require('../models/products');
       done();
     });
   });
 
-  it('Creating a category instance', (done) => {
-    cat = new categoryModel({
-      name: 'cat'
+  it('Creating a product instance', (done) => {
+    prod = new productModel({
+      name: 'prod',
+      imageURL: '1',
+      price: '2',
+      description: '3',
     });
-    cat.save(function(err, res) {
+    prod.save(function(err, res) {
       expect(err).to.be.null;
       done();
     });
   });
 
-  it('Creating a category instance and then deleting it', (done) => {
-    cat = new categoryModel({
-      name: 'cat'
+  it('Creating a product instance with incomplete data', (done) => {
+    prod = new productModel({
+      name: 'prod',
+      imageURL: '1'
     });
-    cat.save().then(function() {
-      categoryModel.findByIdAndDelete(cat.id, (err) => {
+    prod.save(function(err, res) {
+      expect(err).to.not.be.null;
+      done();
+    });
+  });
+
+  it('Creating a product instance and then deleting it', (done) => {
+    prod = new productModel({
+      name: 'prod',
+      imageURL: '1',
+      price: '2',
+      description: '3',
+    });
+    prod.save().then(function() {
+      productModel.findByIdAndDelete(prod.id, (err) => {
         expect(err).to.be.null;
         done();
       });
