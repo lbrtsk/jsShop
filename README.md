@@ -3,6 +3,7 @@ Simple shop API made using Node.js, Express.js and MongoDB
 
 ## Running:
 `npm install`
+
 `npm run dev`
 
 ## Unit testing:
