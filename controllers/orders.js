@@ -1,5 +1,5 @@
 const orderModel = require('../models/orders');
-const mail = require('../reports/mail');
+const mail = require('../reports/reports');
 
 module.exports = {
   list(req, res) {
@@ -20,7 +20,7 @@ module.exports = {
       if (err) {
         res.json({ status: 'error', message: err.message, data: null });
       } else {
-        mail.mailClientAboutOrder(result);
+        mail.mailClientAboutOrder();
         res.json({ status: 'success', message: 'Order created successfully', data: result });
       }
     });
